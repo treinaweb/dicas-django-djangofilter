@@ -15,6 +15,13 @@
   <div class="row">
     <div class="col">
       <div class="card">
+        <div class="card-header">
+          <form method="GET">
+            {{ filter.form|crispy }}
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            <a href="{% url "jobs:job_list" %}" class="btn btn-secondary">Limpar</a>
+          </form>
+        </div>
         <div class="card-body">
           <p>Mostrando {{ jobs|length }} vagas</p>
           <table class="table">
