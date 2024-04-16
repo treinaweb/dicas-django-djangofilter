@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% load humanize %}
+
+{% block title %}
+  {{ job.title }}
+{% endblock title %} 
+
+{%block content %}
+<main class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{{ job.title }}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ job.company }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ job.location }}</h6>
+          <p class="card-text">{{ job.description }}</p>
+          <p class="card-text"><strong>Tipo:</strong> {{ job.get_job_type_display }}</p>
+          <p class="card-text"><strong>Nível:</strong> {{ job.get_job_level_display }}</p>
+          <p class="card-text"><strong>Skills:</strong> {{ job.get_skills }}</p>
+          <p class="card-text"><strong>Salário:</strong> R$ {{ job.salary|intcomma }}</p>
+          <a href="{% url 'jobs:job_list' %}" class="btn btn-secondary">Voltar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

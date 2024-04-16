@@ -1,0 +1,64 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block title %}Lista de Vagas{% endblock title %} 
+
+{%block content %}
+<main class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Lista de Vagas</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <p>Mostrando {{ jobs|length }} vagas</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">Localização</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Nível</th>
+                <th scope="col">Salário</th>
+                <th scope="col">Skills</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for job in jobs %}
+              <tr>
+                <td>
+                  <a href="{% url 'jobs:job_detail' job.id %}">{{ job.title }}</a>
+                </td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.location }}</td>
+                <td>{{ job.get_job_type_display }}</td>
+                <td>{{ job.get_job_level_display }}</td>
+                <td>R$ {{ job.salary|intcomma }}</td>
+                <td>{{ job.get_skills }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+  $(document).ready(function() {
+    $('.select').select2();
+    $('.selectmultiple').select2({
+      multiple: true
+    });
+  });
+</script>
+{% endblock scripts %}
